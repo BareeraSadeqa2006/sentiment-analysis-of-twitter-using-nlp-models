@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Login · Sentiment Analyzer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="page">
+    <div class="card auth-card">
+
+      {# Auth page illustration: chat bubble with heart #}
+      <svg class="auth-illustration" viewBox="0 0 64 64" fill="none"
+           xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="6" y="10" width="52" height="36" rx="10"
+              fill="#eef2ff" stroke="currentColor" stroke-width="1.5"/>
+        <polygon points="22,46 24,56 34,46"
+                 fill="#eef2ff" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M32 36 C25 31 22 27 22 24 C22 21 24 19 27 19 C29 19 31 20 32 22
+                 C33 20 35 19 37 19 C40 19 42 21 42 24 C42 27 39 31 32 36 Z"
+              fill="currentColor"/>
+      </svg>
+
+      <div class="title-row" style="justify-content:center">
+        <h1 class="title">Welcome back</h1>
+      </div>
+      <p class="subtitle" style="text-align:center">Sign in to analyze tweet sentiment</p>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+          <div class="flash flash-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endwith %}
+
+      <form method="post" action="{{ url_for('login') }}">
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" required autofocus autocomplete="username" />
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required autocomplete="current-password" />
+
+        <button type="submit" class="btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M10 17l5-5-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M19 4h2v16h-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Log in
+        </button>
+      </form>
+
+      <p class="muted">
+        Don't have an account?
+        <a href="{{ url_for('register') }}">Create one</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>
